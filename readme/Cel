@@ -1,0 +1,20 @@
+Stworzenie kalendarza gregoriańskiego (bez użycia Springa):
+1. Tworzymy obiekt typu locale (strefa czasowa)
+2. Przekazujemy obiekt locale do kalendarza
+3. Obiekt typu SimpleDateFormat służy do formatowania daty kalendarza.
+
+A teraz z użyciem Springa:
+1. W pliku konfiguracyjnym XML tworzymy beana "locale" klasy Locale -> musimy tutaj podać
+	springowi, że chcemy aby nie używał bezpośrednio konstruktora, lecz metody faktoryzującej
+	(KONIECZNIE STATYCZNEJ) -> poprzez modyfikator "factory-method". W tym przypadku ta metoda
+	to getDefault (tak jak tworzyliśmy bez springa).
+2. Tak samo postępujemy z bean'em calendar klasy GregorianCalendar. Działa to tak samo, tylko
+	że metoda faktoryzująca "getInstance", którą chcemy wywołać posiada argument. Podajemy
+	argument używająć znacznika "constructor-arg" -> podajemy referencję do beana "locale".
+	Możemy tutaj podawać parametry tak jak do konstruktora.
+3. Tak samo jak w punkcie pierwszym tworzymy beana klasy SimpleDateFormat.
+
+--------UWAGA-------
+Atrybut "class" w pliku konfiguracyjnym XML, przy tworzeniu beana nie oznacza, że bean 
+ma być określonej klasy, tylko że dana klasa będzie wykorzystywana przy jego tworzeniu.
+Np, że statyczna metoda fabrykująca będzie wywołana z tej klasy.
